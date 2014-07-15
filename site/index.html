@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <script src="js/libs/angular.js"></script>
     <script src="js/libs/angular-ui-router.js"></script>
+    <script src="js/libs/lodash.js"></script>
     <script src="js/app.js"></script>
     <script src="js/mainModule.js"></script>
     <link href="css/deck.css" rel="stylesheet" />
@@ -20,6 +21,15 @@
             <span>%</span>
         </div>
         <button class="addDeckButton" ng-click="addDeck()">Add Deck</button>
+
+        <div class="matchupContainer">
+            <span>{{selectedDeck.name}} matchups:</span>
+            <div ng-repeat="_otherDeck in unselectedDecks()">
+                <span>VS {{_otherDeck.name}}:</span>
+                <input type="text" ng-model="selectedDeck.matchups[_otherDeck.id]" ng-change="syncMatchup(selectedDeck, _otherDeck)" />
+                <span>%</span>
+            </div>
+        </div>
     </div>
 </body>
 </html>
