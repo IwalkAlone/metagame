@@ -1,6 +1,6 @@
 ﻿angular
     .module('main')
-    .controller('deckInputController', ['$scope', function ($scope) {
+    .controller('deckInputController', ['$scope', 'simulator', function ($scope, simulator) {
         $scope.decks = [];
 
         var id = 0;
@@ -17,6 +17,8 @@
                 share: '',
                 matchups: {}
             };
+
+            newDeck.matchups[newDeck.id] = 50;
 
             _.each($scope.decks, function (deck) {
                 newDeck.matchups[deck.id] = 50;
@@ -40,5 +42,9 @@
 
         $scope.syncMatchup = function (deck, otherDeck) {
             otherDeck.matchups[deck.id] = 100 - deck.matchups[otherDeck.id];
+        };
+
+        $scope.runExperiment = function () {
+            var result = simulator.runExperiment($scope.decks, 1);
         };
     }]);

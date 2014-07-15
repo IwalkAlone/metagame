@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular
-    .module('main', [])
+    .module('main', ['logic'])
     .run(function () {
 
     });

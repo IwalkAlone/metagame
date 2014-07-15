@@ -32,14 +32,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="css\deck.css" />
     <Content Include="index.html" />
     <Content Include="js\app.js" />
     <Content Include="js\libs\angular-ui-router.js" />
     <Content Include="js\libs\angular.js" />
-    <Content Include="js\mainModule.js" />
+    <Content Include="js\libs\lodash.js" />
+    <Content Include="js\logic\logicModule.js" />
+    <Content Include="js\logic\simulator.js" />
+    <Content Include="js\main\mainModule.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="html\" />
+    <Folder Include="js\directives\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
