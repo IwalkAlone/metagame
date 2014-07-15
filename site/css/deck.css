@@ -1,0 +1,12 @@
+﻿.deckContainer {
+    background-color: palevioletred;
+    max-width: 400px;
+}
+
+.deckContainer.selected {
+    background-color: lightblue;
+}
+
+.addDeckButton {
+    display: block;
+}

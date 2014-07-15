@@ -1,5 +1,19 @@
 ﻿angular
     .module('main')
-    .controller('testController', ['$scope', function ($scope) {
-        $scope.hello = "Hello";
+    .controller('deckInputController', ['$scope', function ($scope) {
+        $scope.decks = [];
+        $scope.addDeck = function () {
+            $scope.decks.push({
+                name: '',
+                share: ''
+            });
+        };
+
+        $scope.selectDeck = function (deck) {
+            $scope.selectedDeck = deck;
+        };
+
+        $scope.deckIsSelected = function (deck) {
+            return $scope.selectedDeck === deck;
+        }
     }]);

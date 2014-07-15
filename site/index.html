@@ -7,11 +7,19 @@
     <script src="js/libs/angular-ui-router.js"></script>
     <script src="js/app.js"></script>
     <script src="js/mainModule.js"></script>
+    <link href="css/deck.css" rel="stylesheet" />
     <title></title>
 </head>
 <body ng-app="main">
-    <div ng-controller="testController">
-        <p>{{hello}}</p>
+    <div ng-controller="deckInputController">
+        <span>Deck Name</span>
+        <span>Metagame Share</span>
+        <div class="deckContainer" ng-repeat="_deck in decks" ng-click="selectDeck(_deck)" ng-class="{selected: deckIsSelected(_deck)}">
+            <input type="text" ng-model="_deck.name" />
+            <input type="text" ng-model="_deck.share" />
+            <span>%</span>
+        </div>
+        <button class="addDeckButton" ng-click="addDeck()">Add Deck</button>
     </div>
 </body>
 </html>
