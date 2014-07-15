@@ -35,9 +35,7 @@
         };
 
         $scope.unselectedDecks = function () {
-            return _.filter($scope.decks, function (deck) {
-                return deck !== $scope.selectedDeck;
-            })
+            return _.reject($scope.decks, $scope.deckIsSelected);
         }
 
         $scope.syncMatchup = function (deck, otherDeck) {
