@@ -4,7 +4,7 @@
         this.runExperiment = function (decks, trials) {
             var tournaments = [];
             var settings = {
-                rounds: 2,
+                rounds: 8,
                 top8: true
             };
             for (var i = 0; i < trials; i++) {
@@ -37,6 +37,8 @@
                 var pairings = makePairings(players);
                 playMatches(pairings);
             }
+            var top8 = makeCut(players, 8);
+            playTop8(top8);
             return players;
         };
 
@@ -63,7 +65,7 @@
         };
 
         var comparePlayers = function (p1, p2) {
-            return p1.points > p2.points;
+            return p2.points - p1.points;
         };
 
         var playMatches = function (pairings) {
@@ -86,5 +88,35 @@
             var p1WinRate = deck1.matchups[deck2.id] / 100;
             var result = Math.random() < p1WinRate ? pairing.p1 : pairing.p2;
             return result;
+        };
+
+        var makeCut = function (players, count) {
+            players.sort(comparePlayers);
+            return _.first(players, count);
+        };
+
+        var playTop8 = function (top8) {
+            _.each(top8, function(player) {
+                player.top8 = true;
+            });
+            while (top8.length > 1) {
+                var pairings = makeTopPairings(top8);
+                var winners = _.map(pairings, determineWinner);
+                top8 = winners;
+            }
+
+            top8[0].win = true;
+        };
+
+        var makeTopPairings = function (top) {
+            var pairings = [];
+            var size = top.length / 2;
+            var topHalf = _.first(top, size);
+            var bottomHalf = _.last(top, size).reverse();
+            var pairsOfPlayers = _.zip(topHalf, bottomHalf);
+            pairings = _.map(pairsOfPlayers, function (pair) {
+                return _.zipObject(['p1', 'p2'], pair);
+            });
+            return pairings;
         };
     });

@@ -34,6 +34,10 @@
         </div>
 
         <button ng-click="runExperiment()">Run</button>
+        <span>{{winnerDecks}}</span>
+        <div ng-repeat="_winnerDeckCount in winnerDeckCounts">
+            <span>{{_winnerDeckCount.name}}: {{_winnerDeckCount.count}}</span>
+        </div>
     </div>
 </body>
 </html>

@@ -45,6 +45,21 @@
         };
 
         $scope.runExperiment = function () {
-            var result = simulator.runExperiment($scope.decks, 1);
+            var result = simulator.runExperiment($scope.decks, 1000);
+            var winnerDecks = _.map(result, function (tournament) {
+                var winner = _.first(_.filter(tournament, function (player) {
+                    return player.win;
+                }));
+                return winner.deck.name;
+            });
+            $scope.winnerDecks = winnerDecks.join(' ');
+            var uniqueWinnerDecks = _.uniq(winnerDecks).sort();
+            $scope.winnerDeckCounts = _.map(uniqueWinnerDecks, function (uniqueDeck) {
+                var name = uniqueDeck;
+                var count = _.filter(winnerDecks, function (deck) {
+                    return uniqueDeck === deck;
+                }).length;
+                return {name: name, count: count};
+            });
         };
     }]);
