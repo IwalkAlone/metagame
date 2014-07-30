@@ -1,6 +1,6 @@
 ﻿angular
     .module('main')
-    .controller('deckInputController', ['$scope', 'simulator', function ($scope, simulator) {
+    .controller('deckInputController', ['$scope', 'simulator', 'stats', function ($scope, simulator, stats) {
         $scope.decks = [];
 
         var id = 0;
@@ -46,20 +46,20 @@
 
         $scope.runExperiment = function () {
             var result = simulator.runExperiment($scope.decks, 1000);
-            var winnerDecks = _.map(result, function (tournament) {
-                var winner = _.first(_.filter(tournament, function (player) {
-                    return player.win;
-                }));
-                return winner.deck.name;
+
+            $scope.deckResults = _.map($scope.decks, function (deck){
+                var share = stats.getDeckMetagameShare(deck, $scope.decks);
+                var winRate = stats.getDeckTournamentWinRate(result, deck);
+                var adjustedWinRate = stats.getDeckTournamentWinRateAdjustedForPopularity(result, deck, $scope.decks);
+                return {
+                    deck: deck,
+                    share: share,
+                    winRate: winRate,
+                    adjustedWinRate: adjustedWinRate
+                };
+
+                // need to encapsulate all experiment-related data in  it by copying
             });
-            $scope.winnerDecks = winnerDecks.join(' ');
-            var uniqueWinnerDecks = _.uniq(winnerDecks).sort();
-            $scope.winnerDeckCounts = _.map(uniqueWinnerDecks, function (uniqueDeck) {
-                var name = uniqueDeck;
-                var count = _.filter(winnerDecks, function (deck) {
-                    return uniqueDeck === deck;
-                }).length;
-                return {name: name, count: count};
-            });
+
         };
     }]);

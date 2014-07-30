@@ -9,6 +9,7 @@
     <script src="js/app.js"></script>
     <script src="js/logic/logicModule.js"></script>
     <script src="js/logic/simulator.js"></script>
+    <script src="js/logic/stats.js"></script>
     <script src="js/main/mainModule.js"></script>
     <link href="css/deck.css" rel="stylesheet" />
     <title></title>
@@ -34,10 +35,14 @@
         </div>
 
         <button ng-click="runExperiment()">Run</button>
-        <span>{{winnerDecks}}</span>
-        <div ng-repeat="_winnerDeckCount in winnerDeckCounts">
-            <span>{{_winnerDeckCount.name}}: {{_winnerDeckCount.count}}</span>
+        <div ng-repeat="_deckResult in deckResults">
+            <p>Name: {{_deckResult.deck.name}}</p>
+            <p>Metagame Share: {{_deckResult.share}}</p>
+            <p>Tournament Win Rate:{{_deckResult.winRate}}</p>
+            <p>Adjusted Tournament Win Rate:{{_deckResult.adjustedWinRate}}</p>
         </div>
+
+
     </div>
 </body>
 </html>

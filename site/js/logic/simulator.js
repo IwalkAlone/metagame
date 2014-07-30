@@ -10,8 +10,6 @@
             for (var i = 0; i < trials; i++) {
                 var players = generatePlayers(decks);
                 var tournament = runTournament(players, decks, settings);
-                console.log('trny');
-                console.log(tournament);
                 tournaments.push(tournament);
             }
             return tournaments;
