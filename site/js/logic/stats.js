@@ -24,6 +24,23 @@ angular
                 return winners/total;
             },
 
+            getDeckTop8Rate: function (tournaments, deck) {
+                var top8s = 0;
+                var total = 0;
+                _.each(tournaments, function (tournament) {
+                    total++;
+                    var top8 = _.filter(tournament, function(player) {
+                        return player.top8;
+                    });
+                    _.each(top8, function (player) {
+                        if (player.deck === deck) {
+                            top8s++;
+                        }
+                    });
+                });
+                return top8s/total;
+            },
+
             getDeckTournamentWinRateAdjustedForPopularity: function (tournaments, deck, allDecks) {
                 return this.getDeckTournamentWinRate(tournaments, deck) /
                     this.getDeckMetagameShare(deck, allDecks);

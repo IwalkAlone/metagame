@@ -45,16 +45,18 @@
         };
 
         $scope.runExperiment = function () {
-            var result = simulator.runExperiment($scope.decks, 1000);
+            var result = simulator.runExperiment($scope.decks, 200);
 
             $scope.deckResults = _.map($scope.decks, function (deck){
                 var share = stats.getDeckMetagameShare(deck, $scope.decks);
                 var winRate = stats.getDeckTournamentWinRate(result, deck);
+                var top8Rate = stats.getDeckTop8Rate(result, deck);
                 var adjustedWinRate = stats.getDeckTournamentWinRateAdjustedForPopularity(result, deck, $scope.decks);
                 return {
                     deck: deck,
                     share: share,
                     winRate: winRate,
+                    top8Rate: top8Rate,
                     adjustedWinRate: adjustedWinRate
                 };
 

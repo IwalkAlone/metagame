@@ -89,6 +89,7 @@
         };
 
         var makeCut = function (players, count) {
+            players = _.shuffle(players);
             players.sort(comparePlayers);
             return _.first(players, count);
         };
@@ -113,7 +114,10 @@
             var bottomHalf = _.last(top, size).reverse();
             var pairsOfPlayers = _.zip(topHalf, bottomHalf);
             pairings = _.map(pairsOfPlayers, function (pair) {
-                return _.zipObject(['p1', 'p2'], pair);
+                return {
+                    p1: pair[0],
+                    p2: pair[1]
+                };
             });
             return pairings;
         };
